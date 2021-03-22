@@ -1,11 +1,47 @@
 
 
-filename = "35 hertz.txt"
-with open(filename) as f:
-    data = f.readlines()
 
-times = [i.split('\t')[0] for i in data]
-displacement = [i.split('\t')[1] for i in data]
+# importing csv module 
+import csv 
+
+# ---------------------------------------- If using .csv file then use code below -------------------------------------------
+# csv file name 
+filename = "50HertzCenter.csv"
+  
+# initializing the titles and rows list 
+fields = [] 
+rows = [] 
+  
+# reading csv file 
+with open(filename, 'r') as csvfile: 
+    # creating a csv reader object 
+    csvreader = csv.reader(csvfile) 
+      
+    # extracting field names through first row 
+    fields = next(csvreader) 
+  
+    # extracting each data row one by one 
+    for row in csvreader: 
+        rows.append(row) 
+  
+    # get total number of rows 
+    # print("Total no. of rows: %d"%(csvreader.line_num)) 
+  
+times = []
+displacement = []
+for i in range(len(rows)):
+    value = float(rows[i][0])
+    dispValue = float(rows[i][1])
+    times.append(value)
+    displacement.append(dispValue)
+
+# ------------------------------------ If using .txt file then use code below --------------------------------------------
+# filename = "20HertzCenter.csv"
+# with open(filename) as f:
+#     data = f.readlines()
+
+# times = [i.split('\t')[0] for i in data]
+# displacement = [i.split('\t')[1] for i in data]
 
 time = []
 for i in times:
@@ -71,4 +107,5 @@ print("Test: ", filename)
 frequency = get_frequency(time, disp)
 print("Frequency: ", frequency)
 
-print("Amplitude: ", amplitude)
+print("Amplitude (mm): ", amplitude)
+print("Amplitude (mil): ", amplitude/.0254)
